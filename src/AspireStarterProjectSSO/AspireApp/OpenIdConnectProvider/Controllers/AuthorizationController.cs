@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Security.Claims;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +10,7 @@ using OpenIdConnectProvider.Helpers;
 using OpenIdConnectProvider.ViewModels.Authorization;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OpenIdConnectProvider.Controllers;
