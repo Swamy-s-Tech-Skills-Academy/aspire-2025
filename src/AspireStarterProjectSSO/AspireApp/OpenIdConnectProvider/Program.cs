@@ -1,3 +1,4 @@
+using AspireApp.ServiceDefaults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenIdConnectProvider.Data;
