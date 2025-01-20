@@ -1,3 +1,4 @@
+using AspireApp.ServiceDefaults;
 using AspireApp.Web;
 using AspireApp.Web.Components;
 
