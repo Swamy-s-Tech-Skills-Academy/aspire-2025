@@ -1,3 +1,5 @@
+using AspireApp.Tests.Helpers;
+
 namespace AspireApp.Tests;
 
 public class WebTests
@@ -24,5 +26,35 @@ public class WebTests
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetWeatherReturnsRightContent()
+    {
+        // Arrange
+        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AspireApp_AppHost>();
+        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
+        {
+            clientBuilder.AddStandardResilienceHandler();
+        });
+        // To output logs to the xUnit.net ITestOutputHelper, consider adding a package from https://www.nuget.org/packages?q=xunit+logging
+
+        await using var app = await appHost.BuildAsync();
+        var resourceNotificationService = app.Services.GetRequiredService<ResourceNotificationService>();
+        await app.StartAsync();
+
+        // Act
+        var httpClient = app.CreateHttpClient("webfrontend");
+
+        var response = await httpClient.GetAsync("/weather");
+        var responseBody = await HtmlHelpers.GetDocumentAsync(response);
+        var descriptionElement = responseBody.QuerySelector("p");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(descriptionElement);
+        Assert.Equal(
+            "This component demonstrates showing data loaded from a backend API service.",
+            descriptionElement.InnerHtml);
     }
 }
