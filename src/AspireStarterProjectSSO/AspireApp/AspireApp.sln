@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35617.110 d17.13
+VisualStudioVersion = 17.13.35617.110
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.AppHost", "AspireApp.AppHost\AspireApp.AppHost.csproj", "{FD511C37-CC1B-4D70-A63F-4CA5EC7182BE}"
 EndProject
@@ -9,6 +9,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.ApiService", "AspireApp.ApiService\AspireApp.ApiService.csproj", "{FA47FD19-33EC-F2F6-751C-44740E816D25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.Web", "AspireApp.Web\AspireApp.Web.csproj", "{167C9083-B235-CCD4-47F1-339EE30AC88F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIdConnectProvider", "OpenIdConnectProvider\OpenIdConnectProvider.csproj", "{1E1BD6FC-7E3F-57A1-4D2E-7F0C05F37634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{167C9083-B235-CCD4-47F1-339EE30AC88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{167C9083-B235-CCD4-47F1-339EE30AC88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{167C9083-B235-CCD4-47F1-339EE30AC88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1BD6FC-7E3F-57A1-4D2E-7F0C05F37634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1BD6FC-7E3F-57A1-4D2E-7F0C05F37634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1BD6FC-7E3F-57A1-4D2E-7F0C05F37634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1BD6FC-7E3F-57A1-4D2E-7F0C05F37634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

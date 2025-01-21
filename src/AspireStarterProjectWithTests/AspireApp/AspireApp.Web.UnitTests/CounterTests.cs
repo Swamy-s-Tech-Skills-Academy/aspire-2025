@@ -1,7 +1,7 @@
 ﻿using AspireApp.Web.Components.Pages;
 using Bunit;
 
-namespace AspireApp.Tests;
+namespace AspireApp.Web.UnitTests;
 
 public class CounterTests : TestContext
 {
