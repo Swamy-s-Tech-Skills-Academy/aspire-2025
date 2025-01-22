@@ -1,6 +1,8 @@
 using AspireApp.ServiceDefaults;
 using AspireApp.Web;
 using AspireApp.Web.Components;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,29 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
         // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
         client.BaseAddress = new("https+http://apiservice");
     });
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+{
+    options.SignInScheme = "Cookies";
+    options.Authority = Environment.GetEnvironmentVariable(Constants.IDP_HTTP_ENVIRONMENT_VARIABLE);
+    options.ClientId = "aspNetCoreAuth";
+    options.ClientSecret = "some_secret";
+    options.ResponseType = "code";
+    options.UsePkce = true;
+    options.SaveTokens = true;
+    options.CallbackPath = "/signin-oidc";
+    options.SignedOutCallbackPath = "/signout-callback-oidc";
+    options.RequireHttpsMetadata = false;
+    options.GetClaimsFromUserInfoEndpoint = true;
+});
 
 var app = builder.Build();
 
@@ -39,5 +64,10 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.MapDefaultEndpoints();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapBlazorHub().RequireAuthorization();
 
 app.Run();
