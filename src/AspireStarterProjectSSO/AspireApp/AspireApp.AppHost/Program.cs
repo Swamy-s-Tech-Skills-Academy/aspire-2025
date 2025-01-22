@@ -41,5 +41,4 @@ else
     apiService.WithEnvironment(IDP_HTTP_ENVIRONMENT_VARIABLE, () => $"{idpAppHttp.Scheme}://{idpAppHttp.Host}:{idpAppHttp.Port}");
 }
 
-
 builder.Build().Run();
