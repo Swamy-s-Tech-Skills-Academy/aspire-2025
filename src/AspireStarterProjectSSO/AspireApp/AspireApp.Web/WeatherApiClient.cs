@@ -1,10 +1,17 @@
+using Microsoft.AspNetCore.Authentication;
+using System.Net.Http.Headers;
+
 namespace AspireApp.Web;
 
-public class WeatherApiClient(HttpClient httpClient)
+public class WeatherApiClient(HttpClient httpClient, IHttpContextAccessor accessor)
 {
     public async Task<WeatherForecast[]> GetWeatherAsync(int maxItems = 10, CancellationToken cancellationToken = default)
     {
         List<WeatherForecast>? forecasts = null;
+
+        var accessToken = await accessor.HttpContext?.GetTokenAsync("access_token")!;
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
         await foreach (var forecast in httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>("/weatherforecast", cancellationToken))
         {
