@@ -56,6 +56,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
 app.UseAntiforgery();
 
 app.UseOutputCache();
@@ -66,6 +67,7 @@ app.MapRazorComponents<App>()
 app.MapDefaultEndpoints();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapBlazorHub().RequireAuthorization();
