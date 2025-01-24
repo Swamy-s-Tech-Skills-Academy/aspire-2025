@@ -1,6 +1,10 @@
 using AspireApp.ServiceDefaults;
 using AspireApp.Web;
 using AspireApp.Web.Components;
+using AspireApp.Web.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,19 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
         client.BaseAddress = new("https+http://apiservice");
     });
 
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHttpClient(AspireApp.ServiceDefaults.Constants.OidcBackchannel, o => o.BaseAddress = new("http://idp"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddOpenIdConnect()
+.ConfigureWebAppOpenIdConnect();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -31,6 +48,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
 app.UseAntiforgery();
 
 app.UseOutputCache();
@@ -39,5 +57,11 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.MapDefaultEndpoints();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapBlazorHub().RequireAuthorization();
 
 app.Run();
