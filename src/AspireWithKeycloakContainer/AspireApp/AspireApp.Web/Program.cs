@@ -4,7 +4,6 @@ using AspireApp.Web.Components;
 using AspireApp.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
