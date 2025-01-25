@@ -14,8 +14,8 @@ internal static class KeycloakHostingExtensions
         return builder;
     }
 
-    public static IResourceBuilder<KeycloakResource> AddKeycloakContainer(
-        this IDistributedApplicationBuilder builder, string name, int? port = null, string? tag = null)
+    public static IResourceBuilder<KeycloakResource> AddKeycloakContainer(this IDistributedApplicationBuilder builder,
+        string name, int? port = null, string? tag = null)
     {
         var keycloakContainer = new KeycloakResource(name)
         {
