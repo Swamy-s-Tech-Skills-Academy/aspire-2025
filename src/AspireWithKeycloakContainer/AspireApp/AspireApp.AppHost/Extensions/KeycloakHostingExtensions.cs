@@ -5,8 +5,7 @@ internal static class KeycloakHostingExtensions
     private const int DefaultContainerPort = 8080;
 
     public static IResourceBuilder<TResource> WithReference<TResource>(this IResourceBuilder<TResource> builder,
-        IResourceBuilder<KeycloakResource> keycloakBuilder,
-        string env)
+        IResourceBuilder<KeycloakResource> keycloakBuilder, string env)
         where TResource : IResourceWithEnvironment
     {
         builder.WithReference(keycloakBuilder);
@@ -15,11 +14,8 @@ internal static class KeycloakHostingExtensions
         return builder;
     }
 
-    public static IResourceBuilder<KeycloakResource> AddKeycloakContainer(
-        this IDistributedApplicationBuilder builder,
-        string name,
-        int? port = null,
-        string? tag = null)
+    public static IResourceBuilder<KeycloakResource> AddKeycloakContainer(this IDistributedApplicationBuilder builder,
+        string name, int? port = null, string? tag = null)
     {
         var keycloakContainer = new KeycloakResource(name)
         {

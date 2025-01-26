@@ -1,4 +1,6 @@
+using AspireApp.ApiService.Extensions;
 using AspireApp.ServiceDefaults;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,19 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+
+builder.Services.AddHttpClient(Constants.OidcBackchannel, o => o.BaseAddress = new("http://idp"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+})
+.AddJwtBearer()
+.ConfigureApiJwt();
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -29,9 +44,13 @@ app.MapGet("/weatherforecast", () =>
         ))
         .ToArray();
     return forecast;
-});
+}).RequireAuthorization();
 
 app.MapDefaultEndpoints();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();
 

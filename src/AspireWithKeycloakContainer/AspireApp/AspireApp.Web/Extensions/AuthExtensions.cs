@@ -1,6 +1,6 @@
 ﻿using AspireApp.ServiceDefaults;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace AspireApp.Web.Extensions;
