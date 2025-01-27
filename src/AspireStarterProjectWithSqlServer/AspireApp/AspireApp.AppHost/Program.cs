@@ -1,6 +1,11 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiService = builder.AddProject<Projects.AspireApp_ApiService>("apiservice");
+var password = builder.AddParameter("password", secret: true);
+var sql = builder.AddSqlServer("sql", password);
+var sqldb = sql.AddDatabase("sqldb", "ProductsDb");
+
+var apiService = builder.AddProject<Projects.AspireApp_ApiService>("apiservice")
+    .WithReference(sqldb);
 
 builder.AddProject<Projects.AspireApp_Web>("webfrontend")
     .WithExternalHttpEndpoints()
