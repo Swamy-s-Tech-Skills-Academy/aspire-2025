@@ -1,4 +1,5 @@
 using AspireApp.ApiService.Models;
+using AspireApp.ServiceDefaults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
