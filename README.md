@@ -21,3 +21,13 @@ dotnet workload install aspire
 dotnet new list aspire
 dotnet new aspire-starter --help
 ```
+
+## Few Points
+
+```text
+"Server=127.0.0.1,1443;User ID=sa;Password=P@$$w0rd;TrustServerCertificate=true;Database=master"
+
+weatherforecastado
+weatherforecastefsql
+weatherforecastpsql
+```

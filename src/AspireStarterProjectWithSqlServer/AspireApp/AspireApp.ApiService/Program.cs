@@ -81,7 +81,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapGet("/weatherforecast", ([FromServices] SqlConnection connection) =>
+app.MapGet("/weatherforecastado", ([FromServices] SqlConnection connection) =>
 {
     connection.Open();
 
@@ -162,7 +162,7 @@ app.MapGet("/weatherforecastpsql", ([FromServices] WeatherDbContext context) =>
 #endregion
 
 #region Dummy Data
-app.MapGet("/weatherforecastv1", () =>
+app.MapGet("/weatherforecast", () =>
 {
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecastV1
