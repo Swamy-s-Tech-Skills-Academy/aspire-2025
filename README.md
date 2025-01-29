@@ -26,8 +26,11 @@ dotnet new aspire-starter --help
 
 ```text
 "Server=127.0.0.1,1443;User ID=sa;Password=P@$$w0rd;TrustServerCertificate=true;Database=master"
-
-weatherforecastado
-weatherforecastefsql
-weatherforecastpsql
 ```
+
+## API URLs
+
+> 1. <https://localhost:7324/weatherforecast>
+> 1. <https://localhost:7324/weatherforecastado>
+> 1. <https://localhost:7324/weatherforecastefsql>
+> 1. <https://localhost:7324/weatherforecastpsql>
