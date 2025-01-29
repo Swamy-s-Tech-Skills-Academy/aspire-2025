@@ -26,7 +26,7 @@ dotnet new aspire-starter --help
 
 ```text
 "Server=127.0.0.1,1443;User ID=sa;Password=P@$$w0rd;TrustServerCertificate=true;Database=master"
-"Server=localhost;Port=3306;User ID=root;Password=P@$$w0rd;Database=mysqldb"
+"Server=localhost;Port=3306;User ID=root;Password=zHcjehwAs3PanKy(1KPgGX;Database=mysqldb"
 ```
 
 ## API URLs
@@ -36,3 +36,21 @@ dotnet new aspire-starter --help
 > 1. <https://localhost:7324/weatherforecastefsql>
 > 1. <https://localhost:7324/weatherforecastpsql>
 > 1. <https://localhost:7324/weatherforecastmysql>
+
+## MySQL
+
+```sql
+-- Create the WeatherDb database (if it doesn't exist)
+CREATE DATABASE IF NOT EXISTS WeatherDb;
+
+-- Use the WeatherDb database
+USE WeatherDb;
+
+-- Create the WeatherForecasts table (if it doesn't exist)
+CREATE TABLE IF NOT EXISTS WeatherForecasts (
+    Id INT AUTO_INCREMENT PRIMARY KEY,  -- Added an ID column as a primary key (best practice)
+    Date DATE NOT NULL,
+    TemperatureC INT NOT NULL,
+    Summary VARCHAR(255)
+);
+```

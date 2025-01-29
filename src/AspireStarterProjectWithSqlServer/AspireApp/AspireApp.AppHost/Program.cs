@@ -15,10 +15,10 @@ var postgres = builder.AddPostgres("postgres")
     .WithDataBindMount(source: @"D:\DataStores\DataVolume\psql");
 var postgresdb = postgres.AddDatabase("postgresdb");
 
-var mysql = builder.AddMySql("mysql", password, 3306)
+var mysql = builder.AddMySql("mysql", port: 3306)
     .WithLifetime(ContainerLifetime.Persistent)
     .WithDataBindMount(source: @"D:\DataStores\DataVolume\mysql");
-var mysqldb = mysql.AddDatabase("mysqldb");
+var mysqldb = mysql.AddDatabase("WeatherDb");
 
 var apiService = builder.AddProject<Projects.AspireApp_ApiService>("apiservice")
     .WithReference(sqldb)
