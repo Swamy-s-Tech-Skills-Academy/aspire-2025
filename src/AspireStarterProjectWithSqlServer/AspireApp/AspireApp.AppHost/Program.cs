@@ -13,9 +13,18 @@ var postgres = builder.AddPostgres("postgres")
     .WithDataBindMount(source: @"D:\DataStores\DataVolume\psql");
 var postgresdb = postgres.AddDatabase("postgresdb");
 
+var mysql = builder.AddMySql("mysql")
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithDataBindMount(source: @"D:\DataStores\DataVolume\mysql");
+var mysqldb = mysql.AddDatabase("mysqldb");
+
 var apiService = builder.AddProject<Projects.AspireApp_ApiService>("apiservice")
     .WithReference(sqldb)
-    .WithReference(postgresdb);
+    .WaitFor(sqldb)
+    .WithReference(postgresdb)
+    .WaitFor(postgresdb)
+    .WithReference(mysqldb)
+    .WaitFor(mysqldb);
 
 builder.AddProject<Projects.AspireApp_Web>("webfrontend")
     .WithExternalHttpEndpoints()
