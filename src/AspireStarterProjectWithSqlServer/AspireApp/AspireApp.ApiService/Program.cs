@@ -18,6 +18,8 @@ builder.AddSqlServerDbContext<WeatherDbContext>("sqldb");
 
 builder.AddNpgsqlDbContext<WeatherDbPSqlContext>("postgresdb");
 
+builder.AddMySqlDataSource(connectionName: "mysqldb");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -179,8 +181,3 @@ app.MapGet("/weatherforecast", () =>
 app.MapDefaultEndpoints();
 
 app.Run();
-
-record WeatherForecastV1(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
