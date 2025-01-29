@@ -1,3 +1,5 @@
+using Aspire.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var password = builder.AddParameter("password", secret: true);
@@ -13,7 +15,7 @@ var postgres = builder.AddPostgres("postgres")
     .WithDataBindMount(source: @"D:\DataStores\DataVolume\psql");
 var postgresdb = postgres.AddDatabase("postgresdb");
 
-var mysql = builder.AddMySql("mysql")
+var mysql = builder.AddMySql("mysql", password, 3306)
     .WithLifetime(ContainerLifetime.Persistent)
     .WithDataBindMount(source: @"D:\DataStores\DataVolume\mysql");
 var mysqldb = mysql.AddDatabase("mysqldb");

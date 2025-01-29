@@ -7,7 +7,7 @@ namespace AspireApp.ApiService.Services;
 
 public class WeatherForecastService(MySqlDataSource dataSource)
 {
-    private readonly List<WeatherForecast> weatherForecasts = new();
+    private readonly List<WeatherForecast> weatherForecasts = [];
 
     public IEnumerable<WeatherForecast> GetWeatherForecasts()
     {

@@ -1,5 +1,6 @@
 using AspireApp.ApiService.Models;
 using AspireApp.ApiService.Persistence;
+using AspireApp.ApiService.Services;
 using AspireApp.ServiceDefaults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -19,6 +20,8 @@ builder.AddSqlServerDbContext<WeatherDbContext>("sqldb");
 builder.AddNpgsqlDbContext<WeatherDbPSqlContext>("postgresdb");
 
 builder.AddMySqlDataSource(connectionName: "mysqldb");
+
+builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 
@@ -160,6 +163,16 @@ using (var scope = app.Services.CreateScope())
 app.MapGet("/weatherforecastpsql", ([FromServices] WeatherDbContext context) =>
 {
     return context.WeatherForecasts.ToArray();
+});
+#endregion
+
+#region MySQL Connection
+app.MapGet("/weatherforecastmysql", () =>
+{
+    using var scope = app.Services.CreateScope();
+    var weatherForecastService = scope.ServiceProvider.GetRequiredService<WeatherForecastService>();
+
+    return weatherForecastService.GetWeatherForecasts();
 });
 #endregion
 
