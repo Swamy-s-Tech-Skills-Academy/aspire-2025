@@ -53,4 +53,15 @@ CREATE TABLE IF NOT EXISTS WeatherForecasts (
     TemperatureC INT NOT NULL,
     Summary VARCHAR(255)
 );
+
+-- Example data (optional - you can insert your own data later)
+INSERT INTO WeatherForecasts (Date, TemperatureC, Summary) VALUES
+('2024-08-20', 25, 'Sunny'),
+('2024-08-21', 28, 'Mostly Sunny'),
+('2024-08-22', 22, 'Cloudy'),
+('2024-08-23', 20, 'Rainy'),
+('2024-08-24', 27, 'Sunny');
+
+-- Your query to select data
+SELECT Date, TemperatureC, Summary FROM WeatherForecasts;
 ```
