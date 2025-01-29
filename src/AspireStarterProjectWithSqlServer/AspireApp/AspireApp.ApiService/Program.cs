@@ -16,6 +16,8 @@ builder.AddSqlServerClient("sqldb");
 
 builder.AddSqlServerDbContext<WeatherDbContext>("sqldb");
 
+builder.AddNpgsqlDbContext<WeatherDbPSqlContext>("postgresdb");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -125,7 +127,35 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapGet("/weatherforecastv2", ([FromServices] WeatherDbContext context) =>
+app.MapGet("/weatherforecastefsql", ([FromServices] WeatherDbContext context) =>
+{
+    return context.WeatherForecasts.ToArray();
+});
+#endregion
+
+#region EF Core PostgreSQL Connection
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<WeatherDbPSqlContext>();
+    context.Database.EnsureCreated();
+
+    if (!context.WeatherForecasts.Any())
+    {
+        foreach (var index in Enumerable.Range(1, 5))
+        {
+            context.WeatherForecasts.Add(new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = summaries[Random.Shared.Next(summaries.Length)]
+            });
+
+            context.SaveChanges();
+        }
+    }
+}
+
+app.MapGet("/weatherforecastpsql", ([FromServices] WeatherDbContext context) =>
 {
     return context.WeatherForecasts.ToArray();
 });

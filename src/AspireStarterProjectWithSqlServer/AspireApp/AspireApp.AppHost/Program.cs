@@ -8,8 +8,14 @@ var sql = builder.AddSqlServer(name: "sql", password, 1443)
 
 var sqldb = sql.AddDatabase("sqldb", "master");
 
+var postgres = builder.AddPostgres("postgres")
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithDataBindMount(source: @"D:\DataStores\DataVolume\psql");
+var postgresdb = postgres.AddDatabase("postgresdb");
+
 var apiService = builder.AddProject<Projects.AspireApp_ApiService>("apiservice")
-    .WithReference(sqldb);
+    .WithReference(sqldb)
+    .WithReference(postgresdb);
 
 builder.AddProject<Projects.AspireApp_Web>("webfrontend")
     .WithExternalHttpEndpoints()
