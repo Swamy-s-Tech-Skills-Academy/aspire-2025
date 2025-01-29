@@ -1,4 +1,5 @@
 using AspireApp.ApiService.Models;
+using AspireApp.ApiService.Persistence;
 using AspireApp.ServiceDefaults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -10,7 +11,10 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+
 builder.AddSqlServerClient("sqldb");
+
+builder.AddSqlServerDbContext<WeatherDbContext>("sqldb");
 
 var app = builder.Build();
 
@@ -22,6 +26,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+#region ADO.NET SQL Connection
 using (var scope = app.Services.CreateScope())
 {
     var connection = scope.ServiceProvider.GetRequiredService<SqlConnection>();
@@ -96,7 +101,37 @@ app.MapGet("/weatherforecast", ([FromServices] SqlConnection connection) =>
 
     return weatherForecasts.ToArray();
 });
+#endregion
 
+#region EF Core SQL Connection
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<WeatherDbContext>();
+    context.Database.EnsureCreated();
+
+    if (!context.WeatherForecasts.Any())
+    {
+        foreach (var index in Enumerable.Range(1, 5))
+        {
+            context.WeatherForecasts.Add(new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = summaries[Random.Shared.Next(summaries.Length)]
+            });
+
+            context.SaveChanges();
+        }
+    }
+}
+
+app.MapGet("/weatherforecastv2", ([FromServices] WeatherDbContext context) =>
+{
+    return context.WeatherForecasts.ToArray();
+});
+#endregion
+
+#region Dummy Data
 app.MapGet("/weatherforecastv1", () =>
 {
     var forecast = Enumerable.Range(1, 5).Select(index =>
@@ -109,6 +144,7 @@ app.MapGet("/weatherforecastv1", () =>
         .ToArray();
     return forecast;
 });
+#endregion
 
 app.MapDefaultEndpoints();
 
