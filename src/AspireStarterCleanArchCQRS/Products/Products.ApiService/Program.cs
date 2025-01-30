@@ -1,3 +1,5 @@
+using Products.ServiceDefaults;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.

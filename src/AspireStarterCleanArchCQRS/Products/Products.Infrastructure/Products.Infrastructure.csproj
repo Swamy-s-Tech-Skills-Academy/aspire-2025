@@ -7,7 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
+		<PackageReference Include="Aspire.Microsoft.Data.SqlClient" Version="8.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Products.Application\Products.Application.csproj" />
+		<ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
