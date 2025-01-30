@@ -4,5 +4,5 @@ namespace Products.Domain.Interfaces.Repositories;
 
 public interface ICategoriesRepository
 {
-    Task<List<Category>> GetAllCategoriesAsync();
+    Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken);
 }
