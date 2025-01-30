@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using Products.Infrastructure.Configuration;
 using Products.Infrastructure.Extensions;
 using Products.ServiceDefaults;
 
