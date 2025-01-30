@@ -21,3 +21,47 @@ dotnet workload install aspire
 dotnet new list aspire
 dotnet new aspire-starter --help
 ```
+
+## Few Points
+
+```text
+"Server=127.0.0.1,1443;User ID=sa;Password=P@$$w0rd;TrustServerCertificate=true;Database=master"
+"Server=localhost;Port=3306;User ID=root;Password=zHcjehwAs3PanKy(1KPgGX;Database=mysqldb"
+```
+
+## API URLs
+
+> 1. <https://localhost:7324/weatherforecast>
+> 1. <https://localhost:7324/weatherforecastado>
+> 1. <https://localhost:7324/weatherforecastefsql>
+> 1. <https://localhost:7324/weatherforecastpsql>
+> 1. <https://localhost:7324/weatherforecastmysql>
+
+## MySQL
+
+```sql
+-- Create the WeatherDb database (if it doesn't exist)
+CREATE DATABASE IF NOT EXISTS WeatherDb;
+
+-- Use the WeatherDb database
+USE WeatherDb;
+
+-- Create the WeatherForecasts table (if it doesn't exist)
+CREATE TABLE IF NOT EXISTS WeatherForecasts (
+    Id INT AUTO_INCREMENT PRIMARY KEY,  -- Added an ID column as a primary key (best practice)
+    Date DATE NOT NULL,
+    TemperatureC INT NOT NULL,
+    Summary VARCHAR(255)
+);
+
+-- Example data (optional - you can insert your own data later)
+INSERT INTO WeatherForecasts (Date, TemperatureC, Summary) VALUES
+('2024-08-20', 25, 'Sunny'),
+('2024-08-21', 28, 'Mostly Sunny'),
+('2024-08-22', 22, 'Cloudy'),
+('2024-08-23', 20, 'Rainy'),
+('2024-08-24', 27, 'Sunny');
+
+-- Your query to select data
+SELECT Date, TemperatureC, Summary FROM WeatherForecasts;
+```
