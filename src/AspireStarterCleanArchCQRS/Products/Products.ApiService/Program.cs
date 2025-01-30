@@ -1,3 +1,5 @@
+using MediatR;
+using Products.Application.Categories.Queries.GetAllCategories;
 using Products.Application.Extensions;
 using Products.Infrastructure.Extensions;
 using Products.ServiceDefaults;
@@ -41,6 +43,13 @@ app.MapGet("/weatherforecast", () =>
         ))
         .ToArray();
     return forecast;
+});
+
+// Map your API endpoints (Minimal API style)
+app.MapGet("/api/categories", async (IMediator mediator) =>
+{
+    var categories = await mediator.Send(new GetAllCategoriesQuery());
+    return Results.Ok(categories); // Use Results.Ok for Minimal APIs
 });
 
 app.MapDefaultEndpoints();
