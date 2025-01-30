@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Products.Application.Abstractions.Data;
+using Products.Domain.Interfaces.Repositories;
 using Products.Infrastructure.Data;
+using Products.Infrastructure.Repositories;
 
 namespace Products.Infrastructure.Extensions;
 
@@ -19,6 +21,8 @@ public static class ServiceCollectionExtensions
 
             return new SqlConnectionFactory(connectionString);
         });
+
+        services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
         return services;
     }

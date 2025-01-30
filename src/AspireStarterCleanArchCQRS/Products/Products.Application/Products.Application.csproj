@@ -7,7 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
+		<PackageReference Include="AutoMapper" Version="13.0.*" />
+		<PackageReference Include="MediatR" Version="12.4.*" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
+		<ProjectReference Include="..\Products.Shared\Products.Shared.csproj" />
 	</ItemGroup>
 
 </Project>
