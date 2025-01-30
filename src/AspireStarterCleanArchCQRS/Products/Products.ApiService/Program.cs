@@ -1,9 +1,18 @@
+using Products.Infrastructure.Extensions;
 using Products.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
+
+builder.AddSqlServerClient("sqlDb", configureSettings =>
+{
+    configureSettings.DisableHealthChecks = false;
+    configureSettings.DisableTracing = false;
+});
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
