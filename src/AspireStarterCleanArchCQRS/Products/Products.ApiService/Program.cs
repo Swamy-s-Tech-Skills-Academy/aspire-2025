@@ -1,3 +1,4 @@
+using Products.Application.Extensions;
 using Products.Infrastructure.Extensions;
 using Products.ServiceDefaults;
 
@@ -11,6 +12,8 @@ builder.AddSqlServerClient("sqlDb", configureSettings =>
     configureSettings.DisableHealthChecks = false;
     configureSettings.DisableTracing = false;
 });
+
+builder.Services.AddApplication();
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
