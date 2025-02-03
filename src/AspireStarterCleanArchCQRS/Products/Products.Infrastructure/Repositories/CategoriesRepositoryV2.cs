@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using Products.Application.Abstractions.Data;
 using Products.Domain.Entities;
 using Products.Domain.Interfaces.Repositories;
 
