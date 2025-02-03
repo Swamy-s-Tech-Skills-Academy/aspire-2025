@@ -6,7 +6,7 @@ using Products.Domain.Interfaces.Repositories;
 namespace Products.Infrastructure.Repositories;
 
 internal sealed class CategoriesRepositoryV2(SqlConnection sqlConnection, ILogger<CategoriesRepository> logger)
-    : ICategoriesRepository
+    : ICategoriesRepositoryV2
 {
     private readonly SqlConnection _sqlConnection = sqlConnection ?? throw new ArgumentNullException(nameof(sqlConnection));
     private readonly ILogger<CategoriesRepository> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
