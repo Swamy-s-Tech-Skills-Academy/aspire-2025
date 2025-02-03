@@ -17,6 +17,11 @@ internal sealed class CategoriesRepositoryV2(SqlConnection sqlConnection, ILogge
 
         try
         {
+            if(_sqlConnection.State != System.Data.ConnectionState.Open)
+            {
+                await _sqlConnection.OpenAsync();
+            }
+
             using var command = new SqlCommand("SELECT Id, Name, Description FROM Categories", _sqlConnection); // Your SQL query
             _logger.LogDebug(command.CommandText);
 

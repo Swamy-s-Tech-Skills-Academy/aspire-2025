@@ -49,7 +49,13 @@ app.MapGet("/weatherforecast", () =>
 app.MapGet("/api/categories", async (IMediator mediator) =>
 {
     var categories = await mediator.Send(new GetAllCategoriesQuery());
-    return Results.Ok(categories); // Use Results.Ok for Minimal APIs
+    return Results.Ok(categories);
+});
+
+app.MapGet("/api/categoriesv2", async (IMediator mediator) =>
+{
+    var categories = await mediator.Send(new GetAllCategoriesQueryV2());
+    return Results.Ok(categories);
 });
 
 app.MapDefaultEndpoints();

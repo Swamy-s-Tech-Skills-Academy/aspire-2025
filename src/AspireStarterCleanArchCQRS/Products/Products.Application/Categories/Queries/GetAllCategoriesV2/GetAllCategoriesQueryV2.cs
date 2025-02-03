@@ -3,4 +3,4 @@ using Products.Shared.DTOs;
 
 namespace Products.Application.Categories.Queries.GetAllCategories;
 
-public record GetAllCategoriesQuery : IRequest<List<CategoryDto>>;
+public record GetAllCategoriesQueryV2 : IRequest<List<CategoryDto>>;
