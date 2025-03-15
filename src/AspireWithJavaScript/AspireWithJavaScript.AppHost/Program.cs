@@ -11,4 +11,12 @@ builder.AddProject<Projects.AspireWithJavaScript_Web>("webfrontend")
     .WithReference(apiService)
     .WaitFor(apiService);
 
+builder.AddNpmApp("angular", "../AspireJavaScript.Angular")
+    .WithReference(apiService)
+    .WaitFor(apiService)
+    .WithHttpEndpoint(env: "PORT")
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
+
+
 builder.Build().Run();
