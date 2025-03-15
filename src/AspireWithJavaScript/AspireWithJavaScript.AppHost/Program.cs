@@ -2,18 +2,18 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis("cache");
 
-var apiService = builder.AddProject<Projects.AspireWithJavaScript_ApiService>("apiservice");
+var weatherApi = builder.AddProject<Projects.AspireWithJavaScript_ApiService>("weatherapi");
 
 builder.AddProject<Projects.AspireWithJavaScript_Web>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WaitFor(cache)
-    .WithReference(apiService)
-    .WaitFor(apiService);
+    .WithReference(weatherApi)
+    .WaitFor(weatherApi);
 
 builder.AddNpmApp("angular", "../AspireJavaScript.Angular")
-    .WithReference(apiService)
-    .WaitFor(apiService)
+    .WithReference(weatherApi)
+    .WaitFor(weatherApi)
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
