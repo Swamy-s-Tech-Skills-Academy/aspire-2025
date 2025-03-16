@@ -86,6 +86,51 @@
           "external": true
         }
       }
+    },
+    "react": {
+      "type": "container.v1",
+      "build": {
+        "context": "../AspireJavaScript.React",
+        "dockerfile": "../AspireJavaScript.React/Dockerfile"
+      },
+      "env": {
+        "NODE_ENV": "development",
+        "services__weatherapi__http__0": "{weatherapi.bindings.http.url}",
+        "services__weatherapi__https__0": "{weatherapi.bindings.https.url}",
+        "BROWSER": "none",
+        "PORT": "{react.bindings.http.targetPort}"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http",
+          "targetPort": 8001,
+          "external": true
+        }
+      }
+    },
+    "vue": {
+      "type": "container.v1",
+      "build": {
+        "context": "../AspireJavaScript.Vue",
+        "dockerfile": "../AspireJavaScript.Vue/Dockerfile"
+      },
+      "env": {
+        "NODE_ENV": "development",
+        "services__weatherapi__http__0": "{weatherapi.bindings.http.url}",
+        "services__weatherapi__https__0": "{weatherapi.bindings.https.url}",
+        "PORT": "{vue.bindings.http.targetPort}"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http",
+          "targetPort": 8002,
+          "external": true
+        }
+      }
     }
   }
 }
