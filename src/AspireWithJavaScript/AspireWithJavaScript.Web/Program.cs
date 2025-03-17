@@ -1,3 +1,4 @@
+using AspireWithJavaScript.ServiceDefaults;
 using AspireWithJavaScript.Web;
 using AspireWithJavaScript.Web.Components;
 
